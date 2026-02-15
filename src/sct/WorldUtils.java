@@ -69,7 +69,7 @@ public class WorldUtils {
 		for (int x = 0; x < Constant.world_scale[0]; x++) {//спавн водорода
 			for (int y = 0; y < Constant.world_scale[1]; y++) {
 				gas_map[x][y] = new_map[x][y];
-				if (y > Constant.world_scale[1] * 0.625 && gas_map[x][y] < 60) {
+				if (y > Constant.world_scale[1] * 0.625 && gas_map[x][y] < 60 && world.ch[1][x][y] < 500 && world.Map[x][y] == null) {
 					gas_map[x][y] += (60 - gas_map[x][y]) / 50;
 				}
 			}

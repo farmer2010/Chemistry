@@ -46,7 +46,7 @@ public class Draw {
 		canvas.setColor(new Color(0, 0, 0));
 		canvas.setFont(new Font("arial", Font.BOLD, 18));
 		canvas.drawString("Main: ", Constant.W - 300, 20);
-		canvas.drawString("version 1.9.1", Constant.W - 300, 40);
+		canvas.drawString("version 0.1", Constant.W - 300, 40);
 		canvas.drawString("steps: " + String.valueOf(world.steps), Constant.W - 300, 60);
 		canvas.drawString("objects: " + String.valueOf(world.obj_count) + ", bots: " + String.valueOf(world.b_count), Constant.W - 300, 80);
 		String txt = "";

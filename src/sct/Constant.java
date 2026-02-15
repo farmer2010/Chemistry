@@ -28,14 +28,14 @@ public class Constant {
 	//
 	//
 	public static int[][] movelist = {
-			{0, -1},
-			{1, -1},
-			{1, 0},
-			{1, 1},
-			{0, 1},
-			{-1, 1},
-			{-1, 0},
-			{-1, -1}
+		{0, -1},
+		{1, -1},
+		{1, 0},
+		{1, 1},
+		{0, 1},
+		{-1, 1},
+		{-1, 0},
+		{-1, -1}
 	};
 	//
 	public static int[] get_rotate_position(int rot, int[] sp){

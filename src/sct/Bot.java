@@ -109,7 +109,7 @@ public class Bot{
 			}else if (draw_type == 13) {//железа
 				canvas.setColor(Constant.gradient(new Color(236, 158, 0), new Color(105, 73, 62), Math.min(my_ch[9] / 80, 1)));
 			}else if (draw_type == 14) {//температуры
-				canvas.setColor(Constant.gradient(new Color(255, 255, 0), new Color(255, 0, 0), Math.min(temp / 400, 1)));
+				canvas.setColor(Constant.gradient(new Color(255, 255, 0), new Color(255, 0, 0), Math.min(temp / 150, 1)));
 			}
 			canvas.fillRect(x, y, Constant.cell_size, Constant.cell_size);
 		}
@@ -138,74 +138,9 @@ public class Bot{
 	}
 	public void update_genes() {//органеллы
 		for (int i = 0; i < 2; i++) {
-			if (gene_condition(genes[i][1], genes[i][2]) && genes[i][0] < Reactions.reactions.length) {
+			if (true) {
 				BotUtils.reaction(this, Reactions.get_reaction_from_num(genes[i][0]));//функция выполнения реакции
 			}
-		}
-	}
-	public boolean gene_condition(int cond, int param) {//сейчас условия для органелл берутся отсюда. Не думаю, что они очень сильно нужны ботам
-		if (cond == 0) {//энергии >= x * 15
-			return(energy >= param * 15);
-		}else if (cond == 1) {//энергии <= x * 15
-			return(energy <= param * 15);
-		}else if (cond == 2) {//возраст >= x * 15
-			return(age >= param * 15);
-		}else if (cond == 3) {//возраст <= x * 15
-			return(age <= param * 15);
-		}else if (cond == 4) {//направление > x % 8
-			return(rotate > param % 8);
-		}else if (cond == 5) {//направление == x % 8
-			return(rotate == param % 8);
-		}else if (cond == 6) {//направление < x % 8
-			return(rotate < param % 8);
-		}else if (cond == 7) {//xpos >= x * 8.4
-			return(xpos >= param * 8.4);
-		}else if (cond == 8) {//xpos <= x * 8.4
-			return(xpos <= param * 8.4);
-		}else if (cond == 9) {//ypos >= x * 5.6
-			return(ypos >= param * 5.6);
-		}else if (cond == 10) {//xpos <= x * 5.6
-			return(ypos <= param * 5.6);
-		}else if (cond == 11) {//соседей > x % 8
-			return(BotUtils.count_neighbours(this) > param % 8);
-		}else if (cond == 12) {//соседей == x % 8
-			return(BotUtils.count_neighbours(this) == param % 8);
-		}else if (cond == 13) {//соседей < x % 8
-			return(BotUtils.count_neighbours(this) < param % 8);
-		}else if (cond == 14) {//"A" у меня >= x * 1.25
-			return(my_ch[0] >= param * 1.25);
-		}else if (cond == 15) {//"A" у меня <= x * 1.25
-			return(my_ch[0] <= param * 1.25);
-		}else if (cond == 16) {//"B" у меня >= x * 1.25
-			return(my_ch[1] >= param * 1.25);
-		}else if (cond == 17) {//"B" у меня <= x * 1.25
-			return(my_ch[1] <= param * 1.25);
-		}else if (cond == 18) {//"C" у меня >= x * 1.25
-			return(my_ch[2] >= param * 1.25);
-		}else if (cond == 19) {//"C" у меня <= x * 1.25
-			return(my_ch[2] <= param * 1.25);
-		}else if (cond == 20) {//"D" у меня >= x * 1.25
-			return(my_ch[3] >= param * 1.25);
-		}else if (cond == 21) {//"D" у меня <= x * 1.25
-			return(my_ch[3] <= param * 1.25);
-		}else if (cond == 22) {//"E" у меня >= x * 1.25
-			return(my_ch[4] >= param * 1.25);
-		}else if (cond == 23) {//"E" у меня <= x * 1.25
-			return(my_ch[4] <= param * 1.25);
-		}else if (cond == 24) {//"F" у меня >= x * 1.25
-			return(my_ch[5] >= param * 1.25);
-		}else if (cond == 25) {//"F" у меня <= x * 1.25
-			return(my_ch[5] <= param * 1.25);
-		}else if (cond == 26) {//"G" у меня >= x * 1.25
-			return(my_ch[6] >= param * 1.25);
-		}else if (cond == 27) {//"G" у меня <= x * 1.25
-			return(my_ch[6] <= param * 1.25);
-		}else if (cond == 28) {//"H" у меня >= x * 1.25
-			return(my_ch[7] >= param * 1.25);
-		}else if (cond == 29) {//"H" у меня <= x * 1.25
-			return(my_ch[7] <= param * 1.25);
-		}else {
-			return(true);
 		}
 	}
 	public void update_ch() {//обновление веществ

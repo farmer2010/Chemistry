@@ -6,7 +6,7 @@ public class Reactions {
 	public static int ch_count = 10;
 	//Вещества и их свойства
 	//
-	public static double[] start_count = new double[] {200, 0, 200, 200, 50, 20, 0, 2, 0, 0};//стартовое количество веществ
+	public static double[] start_count = new double[] {200, 0, 20, 200, 50, 20, 0, 2, 0, 0};//стартовое количество веществ
 	public static double[] viscosity = new double[] {0.01, 0, 1, 1, 0.5, 0, 0.005, 0, 0.01, 0};//скорость. 0 - не распространяется, 1 - распространяется с максимально скоростью
 	public static double[] evaporation = new double[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};//испарение. 0 - не испаряется, 1 - испаряется все за раз
 	public static double[] up = new double[] {0, 0, 0, 0, 0.3, 0, 0, 0, 0, 0};//подъем(только водород). 0 - не поднимается, 1 - поднимается весь объем
@@ -69,7 +69,7 @@ public class Reactions {
 			new double[][] {new double[] {5, 1.7}, new double[] {c.GLUCOSE.ordinal(), c.OXYGEN.ordinal()}},//тратим
 			new double[][] {new double[] {6, 1.7}, new double[] {c.ENERGY.ordinal(), c.CO2.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {0, 1}, new double[] {45, 30}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//фотосинтез
 			new double[][] {new double[] {0.5, 0.4}, new double[] {c.HYDROGENIUM.ordinal(), c.CO2.ordinal()}},//тратим
@@ -81,13 +81,13 @@ public class Reactions {
 			new double[][] {new double[] {10, 4}, new double[] {c.CO2.ordinal(), c.OXYGEN.ordinal()}},//тратим
 			new double[][] {new double[] {6}, new double[] {c.GLUCOSE.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {35, 90}, new double[] {0, 1}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//переработка кристалла
 			new double[][] {new double[] {5, 1}, new double[] {c.CRYSTAL.ordinal(), c.HYDROGENIUM.ordinal()}},//тратим
 			new double[][] {new double[] {2.5, 3, 3, 2.5}, new double[] {c.CO2.ordinal(), c.TUNGSTEN.ordinal(), c.CATALYST.ordinal(), c.GLUCOSE.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {35, 23}, new double[] {0, 1}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//синтез тория
 			new double[][] {new double[] {3, 1, 4}, new double[] {c.CATALYST.ordinal(), c.HYDROGENIUM.ordinal(), c.CO2.ordinal()}},//тратим
@@ -99,25 +99,25 @@ public class Reactions {
 			new double[][] {new double[] {7}, new double[] {c.THORIUM.ordinal()}},//тратим
 			new double[][] {new double[] {5}, new double[] {c.ENERGY.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {95, 60}, new double[] {200, 10}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//окисление водорода
 			new double[][] {new double[] {2.5, 5}, new double[] {c.OXYGEN.ordinal(), c.HYDROGENIUM.ordinal()}},//тратим
 			new double[][] {new double[] {3}, new double[] {c.ENERGY.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {35, 25}, new double[] {60, 20}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//окисление железа
 			new double[][] {new double[] {1.5, 3}, new double[] {c.OXYGEN.ordinal(), c.IRON.ordinal()}},//тратим
 			new double[][] {new double[] {4}, new double[] {c.ENERGY.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {0, 1}, new double[] {40, 30}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//синтез железа
 			new double[][] {new double[] {3, 3}, new double[] {c.TUNGSTEN.ordinal(), c.POISON.ordinal()}},//тратим
 			new double[][] {new double[] {3, 2}, new double[] {c.ENERGY.ordinal(), c.IRON.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {0, 1}, new double[] {36, 40}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//синтез яда
 			new double[][] {new double[] {5, 3.5}, new double[] {c.CATALYST.ordinal(), c.CO2.ordinal()}},//тратим
@@ -129,19 +129,19 @@ public class Reactions {
 			new double[][] {new double[] {2.7, 8}, new double[] {c.HYDROGENIUM.ordinal(), c.POISON.ordinal()}},//тратим
 			new double[][] {new double[] {12}, new double[] {c.GLUCOSE.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {40, 25}, new double[] {0, 1}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//разложение железа
 			new double[][] {new double[] {4, 5}, new double[] {c.CO2.ordinal(), c.IRON.ordinal()}},//тратим
 			new double[][] {new double[] {0.3, 3}, new double[] {c.CRYSTAL.ordinal(), c.POISON.ordinal()}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {40, 15}, new double[] {0, 1}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 		new double[][][] {//нагрев
 			new double[][] {new double[] {5, 3}, new double[] {c.ENERGY.ordinal(), c.OXYGEN.ordinal()}},//тратим
 			new double[][] {new double[] {}, new double[] {}},//производим
 			new double[][] {new double[] {}, new double[] {}, new double[] {}, new double[] {}},//катализаторы
-			new double[][] {new double[] {0, 1}, new double[] {100, 20}},//температура
+			new double[][] {new double[] {0, 1}, new double[] {0, 1}},//температура
 		},
 	};
 	public static Color[] reactions_color = new Color[]{//цвета для ботов, выполняющих реакции
