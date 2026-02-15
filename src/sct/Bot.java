@@ -145,12 +145,35 @@ public class Bot{
 	}
 	public void update_ch() {//обновление веществ
 		for (int i = 0; i < 10; i++) {
-			if (ch[i][xpos][ypos] > my_ch[i]) {//сбор веществ из клетки под собой
-				double a = Math.min(ch[i][xpos][ypos] - my_ch[i], 500);
-				double c = Math.min(Math.min(a * Reactions.collect_speed[i], Constant.ch_bot_limit - my_ch[i]), ch[i][xpos][ypos]);
+			int[] p = Constant.get_rotate_position(0, new int[] {xpos, ypos});
+			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки сверху
+				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
+				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
 				my_ch[i] += c;
-				ch[i][xpos][ypos] -= c;
+				ch[i][p[0]][p[1]] -= c;
 			}
+			p = Constant.get_rotate_position(2, new int[] {xpos, ypos});;
+			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки справа
+				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
+				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
+				my_ch[i] += c;
+				ch[i][p[0]][p[1]] -= c;
+			}
+			p = Constant.get_rotate_position(4, new int[] {xpos, ypos});;
+			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки снизу
+				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
+				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
+				my_ch[i] += c;
+				ch[i][p[0]][p[1]] -= c;
+			}
+			p = Constant.get_rotate_position(6, new int[] {xpos, ypos});;
+			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки слева
+				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
+				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
+				my_ch[i] += c;
+				ch[i][p[0]][p[1]] -= c;
+			}
+			//
 			if (my_ch[i] > Constant.ch_bot_limit) {//если слишком много, выбрасываем обратно
 				double c = (my_ch[i] - Constant.ch_bot_limit) / 9.0;
 				my_ch[i] = Constant.ch_bot_limit;
