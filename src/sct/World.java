@@ -264,7 +264,7 @@ public class World extends JPanel{
 					WorldUtils.gas(this, ch[i], i);//газы и жидкости
 				}
 			}
-			WorldUtils.crystal(this, ch[1]);
+			//WorldUtils.crystal(this, ch[1]);
 			WorldUtils.hydrogenium(this, ch[4], 4);
 			WorldUtils.iron(ch[9]);
 			WorldUtils.temp(temp_map);

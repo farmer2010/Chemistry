@@ -5,11 +5,11 @@ import java.awt.Color;
 public class BotUtils {
 	public static void reaction(Bot bot, int reaction_type) {//выполнение реакции
 		double speed = 1;
-		for (int j = 0; j < Reactions.reactions[reaction_type][2][0].length; j++) {//вычисление скорости реакции(для реакций с катализаторами)
-			double spmin = Reactions.reactions[reaction_type][2][2][j];
-			int ch_type = (int)(Reactions.reactions[reaction_type][2][1][j]);
-			double coeff = Reactions.reactions[reaction_type][2][0][j];
-			double spmax = Reactions.reactions[reaction_type][2][3][j];
+		for (int j = 0; j < Reactions.reactions[reaction_type].catalyst_coeffs.length; j++) {//вычисление скорости реакции(для реакций с катализаторами)
+			double spmin = Reactions.reactions[reaction_type].catalyst_min_coeffs[j];
+			int ch_type = (int)(Reactions.reactions[reaction_type].catalyst_types[j]);
+			double coeff = Reactions.reactions[reaction_type].catalyst_coeffs[j];
+			double spmax = Reactions.reactions[reaction_type].catalyst_max_coeffs[j];
 			double count = 0;
 			if (ch_type >= 3) {
 				count = bot.my_ch[ch_type - 3];
@@ -20,14 +20,13 @@ public class BotUtils {
 			}else if (ch_type == 2) {
 				count = bot.temp;
 			}
-			count = Math.min(count, spmax);
-			speed *= Math.max(count * coeff, spmin);
+			speed *= Math.min(Math.max(count * coeff, spmin), spmax);
 		}
 		//
 		boolean inp = true;
-		for (int j = 0; j < Reactions.reactions[reaction_type][0][0].length; j++) {//может ли бот провести реакцию
+		for (int j = 0; j < Reactions.reactions[reaction_type].spend_count.length; j++) {//может ли бот провести реакцию
 			double c = 0;
-			int ch_type = (int)(Reactions.reactions[reaction_type][0][1][j]);
+			int ch_type = (int)(Reactions.reactions[reaction_type].spend_types[j]);
 			if (ch_type >= 3) {
 				c = bot.my_ch[ch_type - 3];
 			}else if (ch_type == 1) {
@@ -35,39 +34,34 @@ public class BotUtils {
 			}else if (ch_type == 2) {
 				c = bot.temp;
 			}
-			inp = inp && (c >= Reactions.reactions[reaction_type][0][0][j] * speed);
+			inp = inp && (c >= Reactions.reactions[reaction_type].spend_count[j] * speed);
 		}
-		if (Reactions.reactions[reaction_type][3][0][0] > 0) {
-			inp = inp && (bot.temp >= Reactions.reactions[reaction_type][3][0][0]);
-		}
+		inp = inp && (bot.temp >= Reactions.reactions[reaction_type].min_temp);
 		//
 		if (inp) {
-			for (int j = 0; j < Reactions.reactions[reaction_type][0][0].length; j++) {//тратим вещества
-				int ch_type = (int)(Reactions.reactions[reaction_type][0][1][j]);
+			for (int j = 0; j < Reactions.reactions[reaction_type].spend_count.length; j++) {//тратим вещества
+				int ch_type = (int)(Reactions.reactions[reaction_type].spend_types[j]);
 				if (ch_type >= 3) {
-					bot.my_ch[(int)(Reactions.reactions[reaction_type][0][1][j]) - 3] -= Reactions.reactions[reaction_type][0][0][j] * speed;
+					bot.my_ch[(int)(Reactions.reactions[reaction_type].spend_types[j]) - 3] -= Reactions.reactions[reaction_type].spend_count[j] * speed;
 				}else if (ch_type == 1) {
-					bot.energy -= Reactions.reactions[reaction_type][0][0][j] * speed;
+					bot.energy -= Reactions.reactions[reaction_type].spend_count[j] * speed;
 				}else if (ch_type == 2) {
-					bot.temp -= Reactions.reactions[reaction_type][0][0][j] * speed;
+					bot.temp -= Reactions.reactions[reaction_type].spend_count[j] * speed;
 				}
 			}
-			if (bot.temp >= Reactions.reactions[reaction_type][3][0][0] && Reactions.reactions[reaction_type][3][0][0] > 0) {
-				bot.temp -= (bot.temp - Reactions.reactions[reaction_type][3][0][0]) / Reactions.reactions[reaction_type][3][0][1];
-			}
+			bot.temp -= Reactions.reactions[reaction_type].temp_spend;
 			//
-			for (int j = 0; j < Reactions.reactions[reaction_type][1][0].length; j++) {//производим вещества
-				if ((int)(Reactions.reactions[reaction_type][1][1][j]) >= 3) {
-					bot.my_ch[(int)(Reactions.reactions[reaction_type][1][1][j]) - 3] += Reactions.reactions[reaction_type][1][0][j] * speed;
-				}else if ((int)(Reactions.reactions[reaction_type][1][1][j]) == 1) {
-					bot.energy += Reactions.reactions[reaction_type][1][0][j] * speed;
-				}else if ((int)(Reactions.reactions[reaction_type][1][1][j]) == 2) {
-					bot.temp += Reactions.reactions[reaction_type][1][0][j] * speed;
+			for (int j = 0; j < Reactions.reactions[reaction_type].production_count.length; j++) {//производим вещества
+				if ((int)(Reactions.reactions[reaction_type].production_types[j]) >= 3) {
+					bot.my_ch[(int)(Reactions.reactions[reaction_type].production_types[j]) - 3] += Reactions.reactions[reaction_type].production_count[j] * speed;
+				}else if ((int)(Reactions.reactions[reaction_type].production_types[j]) == 1) {
+					bot.energy += Reactions.reactions[reaction_type].production_count[j] * speed;
+				}else if ((int)(Reactions.reactions[reaction_type].production_types[j]) == 2) {
+					bot.temp += Reactions.reactions[reaction_type].production_count[j] * speed;
 				}
 			}
-			if (bot.temp < Reactions.reactions[reaction_type][3][1][0] && Reactions.reactions[reaction_type][3][1][0] > 0) {
-				bot.temp += (bot.temp - Reactions.reactions[reaction_type][3][1][0]) / Reactions.reactions[reaction_type][3][1][1] * speed;
-			}
+			bot.temp += Reactions.reactions[reaction_type].temp_production;
+			//
 			go_color(bot, Reactions.reactions_color[reaction_type]);//перекрасить бота
 		}
 	}

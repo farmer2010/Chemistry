@@ -145,33 +145,14 @@ public class Bot{
 	}
 	public void update_ch() {//обновление веществ
 		for (int i = 0; i < 10; i++) {
-			int[] p = Constant.get_rotate_position(0, new int[] {xpos, ypos});
-			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки сверху
-				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
-				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
-				my_ch[i] += c;
-				ch[i][p[0]][p[1]] -= c;
-			}
-			p = Constant.get_rotate_position(2, new int[] {xpos, ypos});;
-			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки справа
-				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
-				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
-				my_ch[i] += c;
-				ch[i][p[0]][p[1]] -= c;
-			}
-			p = Constant.get_rotate_position(4, new int[] {xpos, ypos});;
-			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки снизу
-				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
-				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
-				my_ch[i] += c;
-				ch[i][p[0]][p[1]] -= c;
-			}
-			p = Constant.get_rotate_position(6, new int[] {xpos, ypos});;
-			if (p[1] >= 0 && p[1] < Constant.world_scale[1] && ch[i][p[0]][p[1]] > my_ch[i]) {//сбор веществ из клетки слева
-				double a = Math.min(ch[i][p[0]][p[1]] - my_ch[i], 100);
-				double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][p[0]][p[1]]);
-				my_ch[i] += c;
-				ch[i][p[0]][p[1]] -= c;
+			for (int j = 0; j < 8; j+=2) {
+				int[] pos = Constant.get_rotate_position(j, new int[] {xpos, ypos});
+				if (pos[1] >= 0 && pos[1] < Constant.world_scale[1] && ch[i][pos[0]][pos[1]] > my_ch[i]) {//сбор веществ
+					double a = Math.min(ch[i][pos[0]][pos[1]] - my_ch[i], 100);
+					double c = Math.min(Math.min(a * Reactions.collect_speed[i] / 4, Constant.ch_bot_limit - my_ch[i]), ch[i][pos[0]][pos[1]]);
+					my_ch[i] += c;
+					ch[i][pos[0]][pos[1]] -= c;
+				}
 			}
 			//
 			if (my_ch[i] > Constant.ch_bot_limit) {//если слишком много, выбрасываем обратно
