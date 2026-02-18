@@ -9,7 +9,7 @@ public class Reactions {
 		double[] production_count;
 		int[] production_types;
 		//
-		int min_speed;
+		double min_speed;
 		//
 		double[] catalyst_coeffs;    //ускорение за единицу катализатора
 		int[] catalyst_types;        //тип вещества - катализатора
@@ -32,7 +32,7 @@ public class Reactions {
 				double new_min_temp,
 				double new_temp_spend,
 				double new_temp_production,
-				int new_min_speed
+				double new_min_speed
 			) {
 			spend_count = new_spend_count;
 			spend_types = new_spend_types;
@@ -87,123 +87,123 @@ public class Reactions {
 			new double[] {3}, new int[] {c.ENERGY.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//анаэробное дыхание
 			new double[] {5, 4.5}, new int[] {c.A.ordinal(), c.D.ordinal()},//тратим
 			new double[] {4}, new int[] {c.ENERGY.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//аэробное дыхание
 			new double[] {5, 1.7}, new int[] {c.A.ordinal(), c.C.ordinal()},//тратим
 			new double[] {6, 1.7}, new int[] {c.ENERGY.ordinal(), c.D.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//фотосинтез
 			new double[] {0.5, 0.4}, new int[] {c.E.ordinal(), c.D.ordinal()},//тратим
 			new double[] {1.2, 0.6}, new int[] {c.A.ordinal(), c.C.ordinal()},//производим
 			new double[] {1}, new int[] {c.LIGHT.ordinal()}, new double[] {0}, new double[] {100},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//переработка углекислоты
 			new double[] {5, 2}, new int[] {c.D.ordinal(), c.C.ordinal()},//тратим
 			new double[] {6}, new int[] {c.A.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//переработка кристалла
 			new double[] {5, 1}, new int[] {c.B.ordinal(), c.E.ordinal()},//тратим
 			new double[] {2.5, 3, 3, 2.5}, new int[] {c.D.ordinal(), c.F.ordinal(), c.G.ordinal(), c.A.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//синтез тория
 			new double[] {3, 1, 4}, new int[] {c.G.ordinal(), c.E.ordinal(), c.D.ordinal()},//тратим
 			new double[] {4, 2}, new int[] {c.H.ordinal(), c.ENERGY.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//ядерный синтез
 			new double[] {7}, new int[] {c.H.ordinal()},//тратим
 			new double[] {5}, new int[] {c.ENERGY.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//окисление водорода
 			new double[] {2, 4}, new int[] {c.C.ordinal(), c.E.ordinal()},//тратим
 			new double[] {5}, new int[] {c.ENERGY.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//окисление железа
 			new double[] {1.5, 3}, new int[] {c.C.ordinal(), c.J.ordinal()},//тратим
 			new double[] {4}, new int[] {c.ENERGY.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//синтез железа
 			new double[] {3, 3}, new int[] {c.F.ordinal(), c.I.ordinal()},//тратим
 			new double[] {3, 2}, new int[] {c.ENERGY.ordinal(), c.J.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//синтез яда
 			new double[] {5, 3.5}, new int[] {c.G.ordinal(), c.D.ordinal()},//тратим
 			new double[] {2.8}, new int[] {c.I.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//переработка яда
 			new double[] {2.7, 8}, new int[] {c.E.ordinal(), c.I.ordinal()},//тратим
 			new double[] {12}, new int[] {c.A.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//разложение железа
 			new double[] {4, 5}, new int[] {c.D.ordinal(), c.J.ordinal()},//тратим
 			new double[] {0.3, 3}, new int[] {c.B.ordinal(), c.I.ordinal()},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		),
 		new Reaction(//нагрев
 			new double[] {5, 3}, new int[] {c.ENERGY.ordinal(), c.C.ordinal()},//тратим
 			new double[] {}, new int[] {},//производим
 			new double[] {}, new int[] {}, new double[] {}, new double[] {},//катализаторы
 			0, 0, 0,//температура: минимальная для выполнения, трата, производство
-			1//минимальная скорость
+			0.9//минимальная скорость
 		)
 	};
 	public static Color[] reactions_color = new Color[]{//цвета для ботов, выполняющих реакции
-		new Color(203, 242, 68),// гликолиз
-		new Color(255, 255, 128),//анаэробное дыхание
-		new Color(255, 255, 0),//  аэробное дыхание
-		new Color(0, 255, 0),//    фотосинтез
-		new Color(82, 170, 229),// переработка углекислоты
-		new Color(87, 173, 233),// переработка кристалла
-		new Color(251, 117, 255),//синтез тория
-		new Color(250, 92, 145),// ядерный синтез
-		new Color(0, 0, 255),//    окисление водорода
-		new Color(105, 91, 126),// окисление железа
-		new Color(106, 84, 70),//  синтез железа
-		new Color(150, 0, 0),//    синтез яда
-		new Color(140, 43, 59),//  переработка яда
-		new Color(171, 71, 73),//  разложение железа
-		new Color(255, 255, 255),//нагрев
+		new Color(203, 242, 68),// [0]гликолиз
+		new Color(255, 255, 128),//[1]анаэробное дыхание
+		new Color(255, 255, 0),//  [2]аэробное дыхание
+		new Color(0, 255, 0),//    [3]фотосинтез
+		new Color(82, 170, 229),// [4]переработка углекислоты
+		new Color(87, 173, 233),// [5]переработка кристалла
+		new Color(251, 117, 255),//[6]синтез тория
+		new Color(250, 92, 145),// [7]ядерный синтез
+		new Color(0, 0, 255),//    [8]окисление водорода
+		new Color(105, 91, 126),// [9]окисление железа
+		new Color(106, 84, 70),//  [10]синтез железа
+		new Color(150, 0, 0),//    [11]синтез яда
+		new Color(140, 43, 59),//  [12]переработка яда
+		new Color(171, 71, 73),//  [13]разложение железа
+		new Color(255, 255, 255),//[14]нагрев
 	};
 	public static int get_reaction_from_num(int num) {//дается число. возвращается выполняемая реакция
 		if (num >= 0 && num <= 2) {

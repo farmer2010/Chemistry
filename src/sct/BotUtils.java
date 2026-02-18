@@ -3,46 +3,53 @@ package sct;
 import java.awt.Color;
 
 public class BotUtils {
+	public static double get_ch(Bot bot, int ch_type) {
+		double count = 0;
+		if (ch_type >= 3) {
+			count = bot.my_ch[ch_type - 3];
+		}else if (ch_type == 0) {
+			count = Constant.photo_list[Constant.sector(bot.ypos)];
+		}else if (ch_type == 1) {
+			count = bot.energy;
+		}else if (ch_type == 2) {
+			count = bot.temp;
+		}
+		return(count);
+	}
+	//
 	public static void reaction(Bot bot, int reaction_type) {//выполнение реакции
-		double speed = 1;
-		for (int j = 0; j < Reactions.reactions[reaction_type].catalyst_coeffs.length; j++) {//вычисление скорости реакции(для реакций с катализаторами)
+		double speed = 1;//ограничение на максимальную скорость с учетом катализаторов
+		double max_speed = 1;//физически максимальная скорость
+		double min_speed = Reactions.reactions[reaction_type].min_speed;
+		//
+		for (int j = 0; j < Reactions.reactions[reaction_type].spend_count.length; j++) {//вычисление максимальной возможной скорости
+			int ch_type = Reactions.reactions[reaction_type].spend_types[j];
+			double c = get_ch(bot, ch_type);
+			double c_t = Reactions.reactions[reaction_type].spend_count[j];
+			double s = c / c_t;//макс скорость для конкретного компонента реакции
+			if (s < max_speed) {//макс скорость равна минимальной скорости компонента
+				max_speed = s;
+			}
+		}
+		//
+		for (int j = 0; j < Reactions.reactions[reaction_type].catalyst_coeffs.length; j++) {//вычисление скорости реакции(параметр speed)
 			double spmin = Reactions.reactions[reaction_type].catalyst_min_coeffs[j];
 			int ch_type = (int)(Reactions.reactions[reaction_type].catalyst_types[j]);
 			double coeff = Reactions.reactions[reaction_type].catalyst_coeffs[j];
 			double spmax = Reactions.reactions[reaction_type].catalyst_max_coeffs[j];
-			double count = 0;
-			if (ch_type >= 3) {
-				count = bot.my_ch[ch_type - 3];
-			}else if (ch_type == 0) {
-				count = Constant.photo_list[Constant.sector(bot.ypos)];
-			}else if (ch_type == 1) {
-				count = bot.energy;
-			}else if (ch_type == 2) {
-				count = bot.temp;
-			}
+			double count = get_ch(bot, ch_type);
 			speed *= Math.min(Math.max(count * coeff, spmin), spmax);
 		}
 		//
-		boolean inp = true;
-		for (int j = 0; j < Reactions.reactions[reaction_type].spend_count.length; j++) {//может ли бот провести реакцию
-			double c = 0;
-			int ch_type = (int)(Reactions.reactions[reaction_type].spend_types[j]);
-			if (ch_type >= 3) {
-				c = bot.my_ch[ch_type - 3];
-			}else if (ch_type == 1) {
-				c = bot.energy;
-			}else if (ch_type == 2) {
-				c = bot.temp;
-			}
-			inp = inp && (c >= Reactions.reactions[reaction_type].spend_count[j] * speed);
-		}
-		inp = inp && (bot.temp >= Reactions.reactions[reaction_type].min_temp);
+		speed = Math.min(speed, max_speed);//ограничить скорость максимальной скоростью
+		//
+		boolean inp = (speed >= min_speed) && (bot.temp >= Reactions.reactions[reaction_type].min_temp);
 		//
 		if (inp) {
 			for (int j = 0; j < Reactions.reactions[reaction_type].spend_count.length; j++) {//тратим вещества
-				int ch_type = (int)(Reactions.reactions[reaction_type].spend_types[j]);
+				int ch_type = Reactions.reactions[reaction_type].spend_types[j];
 				if (ch_type >= 3) {
-					bot.my_ch[(int)(Reactions.reactions[reaction_type].spend_types[j]) - 3] -= Reactions.reactions[reaction_type].spend_count[j] * speed;
+					bot.my_ch[Reactions.reactions[reaction_type].spend_types[j] - 3] -= Reactions.reactions[reaction_type].spend_count[j] * speed;
 				}else if (ch_type == 1) {
 					bot.energy -= Reactions.reactions[reaction_type].spend_count[j] * speed;
 				}else if (ch_type == 2) {
@@ -52,11 +59,11 @@ public class BotUtils {
 			bot.temp -= Reactions.reactions[reaction_type].temp_spend;
 			//
 			for (int j = 0; j < Reactions.reactions[reaction_type].production_count.length; j++) {//производим вещества
-				if ((int)(Reactions.reactions[reaction_type].production_types[j]) >= 3) {
-					bot.my_ch[(int)(Reactions.reactions[reaction_type].production_types[j]) - 3] += Reactions.reactions[reaction_type].production_count[j] * speed;
-				}else if ((int)(Reactions.reactions[reaction_type].production_types[j]) == 1) {
+				if (Reactions.reactions[reaction_type].production_types[j] >= 3) {
+					bot.my_ch[Reactions.reactions[reaction_type].production_types[j] - 3] += Reactions.reactions[reaction_type].production_count[j] * speed;
+				}else if (Reactions.reactions[reaction_type].production_types[j] == 1) {
 					bot.energy += Reactions.reactions[reaction_type].production_count[j] * speed;
-				}else if ((int)(Reactions.reactions[reaction_type].production_types[j]) == 2) {
+				}else if (Reactions.reactions[reaction_type].production_types[j] == 2) {
 					bot.temp += Reactions.reactions[reaction_type].production_count[j] * speed;
 				}
 			}
