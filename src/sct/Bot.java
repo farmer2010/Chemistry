@@ -45,7 +45,7 @@ public class Bot{
 	};
 	//
 	public int[] commands = new int[Constant.genome_length];//геном
-	public int[][] genes = new int[2][3];//органеллы
+	public int[][] genes = new int[3][3];//органеллы
 	//
 	public Bot(int new_xpos, int new_ypos, Color new_color, double new_energy, double new_temp, Bot[][] new_map, double[][][] new_ch, double[][] new_temp_map, ArrayList<Bot> new_objects) {
 		ch = new_ch;
@@ -62,7 +62,7 @@ public class Bot{
 		for (int i = 0; i < Constant.genome_length; i++) {
 			commands[i] = rand.nextInt(Constant.genome_length);
 		}
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				genes[i][j] = rand.nextInt(64);
 			}
@@ -137,7 +137,7 @@ public class Bot{
 		return(0);
 	}
 	public void update_genes() {//органеллы
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (true) {
 				BotUtils.reaction(this, Reactions.get_reaction_from_num(genes[i][0]));//функция выполнения реакции
 			}
@@ -292,22 +292,22 @@ public class Bot{
 				index %= Constant.genome_length;
 				break;
 			}else if (command == 23) {//сдвинуть вещество из - под себя относительно
-				BotCommands.move_ch(this, commands[(index + 1) % Constant.genome_length] % 8, commands[(index + 2) % Constant.genome_length] % Reactions.ch_count);
+				//BotCommands.move_ch(this, commands[(index + 1) % Constant.genome_length] % 8, commands[(index + 2) % Constant.genome_length] % Reactions.ch_count);
 				index += 3;
 				index %= Constant.genome_length;
 				break;
 			}else if (command == 24) {//сдвинуть вещество из - под себя абсолютно
-				BotCommands.move_ch(this, rotate, commands[(index + 1) % Constant.genome_length] % Reactions.ch_count);
+				//BotCommands.move_ch(this, rotate, commands[(index + 1) % Constant.genome_length] % Reactions.ch_count);
 				index += 2;
 				index %= Constant.genome_length;
 				break;
 			}else if (command == 25) {//сдвинуть вещество под себя относительно
-				BotCommands.move_ch_under(this, commands[(index + 1) % Constant.genome_length] % 8, commands[(index + 2) % Constant.genome_length] % Reactions.ch_count);
+				//BotCommands.move_ch_under(this, commands[(index + 1) % Constant.genome_length] % 8, commands[(index + 2) % Constant.genome_length] % Reactions.ch_count);
 				index += 3;
 				index %= Constant.genome_length;
 				break;
 			}else if (command == 26) {//сдвинуть вещество под себя абсолютно
-				BotCommands.move_ch_under(this, rotate, commands[(index + 1) % Constant.genome_length] % Reactions.ch_count);
+				//BotCommands.move_ch_under(this, rotate, commands[(index + 1) % Constant.genome_length] % Reactions.ch_count);
 				index += 2;
 				index %= Constant.genome_length;
 				break;
@@ -322,7 +322,7 @@ public class Bot{
 				index %= Constant.genome_length;
 				break;
 			}else if (command == 33) {//произвести реакцию
-				BotUtils.reaction(this, commands[(index + 1) % Constant.genome_length] % Reactions.reactions.length);
+				//BotUtils.reaction(this, commands[(index + 1) % Constant.genome_length] % Reactions.reactions.length);
 				index += 2;
 				index %= Constant.genome_length;
 				break;

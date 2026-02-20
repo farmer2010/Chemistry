@@ -37,7 +37,8 @@ public class BotCommands {
 	public static void collect(Bot bot, int rot, int ch_type) {//собирать вещество
 		int[] pos = Constant.get_rotate_position(rot, new int[] {bot.xpos, bot.ypos});
 		if (pos[1] >= 0 && pos[1] < Constant.world_scale[1] && bot.my_ch[ch_type] < 80) {
-			double c = Math.max(Math.min(Math.min(Constant.bot_collect_speed, bot.ch[ch_type][pos[0]][pos[1]]), 80 - bot.my_ch[ch_type]), 0);
+			//double c = Math.max(Math.min(Math.min(Constant.bot_collect_speed, bot.ch[ch_type][pos[0]][pos[1]]), 80 - bot.my_ch[ch_type]), 0);
+			double c = Math.min(Constant.bot_collect_speed, bot.ch[ch_type][pos[0]][pos[1]]);
 			bot.my_ch[ch_type] += c;
 			bot.ch[ch_type][pos[0]][pos[1]] -= c;
 		}
@@ -160,8 +161,8 @@ public class BotCommands {
 				for (int i = 0; i < Constant.genome_length; i++) {
 					new_brain[i] = bot.commands[i];
 				}
-				int[][] new_genes = new int[2][3];
-				for (int i = 0; i < 2; i++) {
+				int[][] new_genes = new int[3][3];
+				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
 						new_genes[i][j] = bot.genes[i][j];
 					}
@@ -169,9 +170,9 @@ public class BotCommands {
 				if (bot.rand.nextInt(4) == 0) {//мутация
 					new_color = new Color(bot.rand.nextInt(256), bot.rand.nextInt(256), bot.rand.nextInt(256));
 					new_brain[bot.rand.nextInt(Constant.genome_length)] = bot.rand.nextInt(Constant.genome_length);
-					if (bot.rand.nextInt(16) == 0) {
-						new_genes[bot.rand.nextInt(2)][bot.rand.nextInt(3)] = bot.rand.nextInt(64);
-					}
+				}
+				if (bot.rand.nextInt(16) == 0) {
+					new_genes[bot.rand.nextInt(3)][bot.rand.nextInt(3)] = bot.rand.nextInt(64);
 				}
 				Bot new_bot = new Bot(pos[0], pos[1], new_color, bot.energy / 2, bot.temp, bot.map, bot.ch, bot.temp_map, bot.objects);
 				for (int i = 0; i < 10; i++) {

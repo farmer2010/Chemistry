@@ -11,7 +11,7 @@ public class Draw {
 				for (int y = 0; y < Constant.world_scale[1]; y++) {
 					if (gas_draw_type == 1) {//глюкоза
 						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(0, 0, 0), Math.min(world.ch[0][x][y] / 500, 1)));
-					}else if (gas_draw_type == 2) {//кристаллы
+					}else if (gas_draw_type == 2) {//кристалл
 						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(129, 164, 240), Math.min(world.ch[1][x][y] / 500, 1)));
 					}else if (gas_draw_type == 3) {//кислород
 						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(112, 219, 235), Math.min(world.ch[2][x][y] / 500, 1)));
@@ -20,7 +20,7 @@ public class Draw {
 					}else if (gas_draw_type == 5) {//водород
 						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(200, 176, 250), Math.min(world.ch[4][x][y] / 500, 1)));
 					}else if (gas_draw_type == 6) {//вольфрам
-						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(168, 194, 209), Math.min(world.ch[5][x][y] / 500, 1)));
+						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(168, 194, 209), Math.min(world.ch[5][x][y] / 100, 1)));//
 					}else if (gas_draw_type == 7) {//катализатор
 						canvas.setColor(Constant.gradient(new Color(255, 255, 255), new Color(94, 158, 122), Math.min(world.ch[6][x][y] / 500, 1)));
 					}else if (gas_draw_type == 8) {//торий
@@ -98,14 +98,17 @@ public class Draw {
 		canvas.drawString("enter name:", Constant.W - 300, 510);
 		canvas.drawString("Controls:", Constant.W - 300, 580);
 		canvas.drawString("Gas draw type:", Constant.W - 300, 655);
+		canvas.drawString("Tungsten count: " + String.valueOf(world.c_tungsten), Constant.W - 300, 1000);
+		canvas.drawString("For cell: " + String.valueOf(world.c_tungsten / (Constant.world_scale[0] * Constant.world_scale[1])), Constant.W - 300, 1025);
 		if (world.selection != null) {
 			canvas.drawString("energy: " + String.valueOf((int)world.selection.energy) + ", temp: " + String.valueOf((int)world.selection.temp) + ", age: " + String.valueOf(world.selection.age), Constant.W - 300, 295);
 			canvas.drawString("position: " + "[" + String.valueOf(world.selection.xpos) + ", " + String.valueOf(world.selection.ypos) + "]", Constant.W - 300, 315);
 			canvas.drawString("color: " + "(" + String.valueOf(world.selection.c_red) + ", " + String.valueOf(world.selection.c_green) + ", " + String.valueOf(world.selection.c_blue) + ")", Constant.W - 300, 335);
+			String t = "sp: " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[0][0])) + ", " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[1][0])) + ", " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[2][0]));
 			if (world.draw_type >= 4 && world.draw_type <= 13) {
-				canvas.drawString("sp: " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[0][0])) + ", " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[1][0])) + ", ch: " + String.valueOf(world.selection.my_ch[world.draw_type - 4]), Constant.W - 300, 355);
+				canvas.drawString(t + ", ch: " + String.valueOf(world.selection.my_ch[world.draw_type - 4]), Constant.W - 300, 355);
 			}else {
-				canvas.drawString("sp: " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[0][0])) + ", " + String.valueOf(Reactions.get_reaction_from_num(world.selection.genes[1][0])), Constant.W - 300, 355);
+				canvas.drawString(t, Constant.W - 300, 355);
 			}
 			canvas.setColor(new Color(0, 0, 0, 200));
 			canvas.fillRect(0, 0, Constant.W - 300, 1080);

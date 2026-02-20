@@ -53,6 +53,7 @@ public class World extends JPanel{
 	double[][] temp_map = new double[Constant.world_scale[0]][Constant.world_scale[1]];
 	int gas_draw_type = 0;
 	JRadioButton[] bs = new JRadioButton[12];
+	double c_tungsten = 0;
 	public World() {
 		setLayout(null);
 		timer = new Timer(delay, new BotListener());
@@ -220,6 +221,14 @@ public class World extends JPanel{
 		if (!pause) {
 			if (rec && steps % 25 == 0) {
 				WorldUtils.record(this);
+			}
+			if (steps % 100 == 0) {
+				c_tungsten = 0;
+				for (int cx = 0; cx < Constant.world_scale[0]; cx++) {
+					for (int cy = 0; cy < Constant.world_scale[1]; cy++) {
+						c_tungsten += ch[5][cx][cy];
+					}
+				}
 			}
 			steps++;
 			b_count = 0;//количество ботов
